@@ -32,7 +32,7 @@ public:
         equilance_sets.push_back(final_states);      // push set of final states
         for(int i=0;i<no_of_states;i++)    // map of state to index
         {
-        state_to_index[states[i]] = i;
+            state_to_index[states[i]] = i;
         }
     }
 
@@ -44,13 +44,13 @@ public:
     void print_dfa()  //print dfa
     {
         for(auto i:inputs){
-            cout<<"   "<<i;
+            cout<<"   |"<<i;
         }
-        cout<<endl;
+        cout<<"\n------------------\n";
         for (auto i : dfa){
             cout << i.first << " ";
             for (auto j : i.second){
-                cout<< " " << j.second << "  ";
+                cout<< " |" << j.second << "  ";
             }
             cout << endl;
         }
@@ -209,41 +209,94 @@ public:
         for(auto it:s2){
             
                 if(find(union_of_dfa_minimised[0].begin(),union_of_dfa_minimised[0].end(),it[0]) == union_of_dfa_minimised[0].end()){
-                    union_of_dfa_minimised.push_back(it);
-                    
-                
+                    union_of_dfa_minimised.push_back(it); 
             }
         }
     }
-    void final_minimised_dfa2(){
+    void final_minimised_dfa2(){     //for printing the final dfa
         int t=0;
         int x=union_of_dfa_minimised.size();
+        // cout<<"x:"<<x<<endl;
         for(auto it:states){
+            t=0;
             for(int i=0;i<x;i++){
-                if(find(union_of_dfa_minimised[i].begin(),union_of_dfa_minimised[i].end(),it) == union_of_dfa_minimised[i].end()){
+                string sl=union_of_dfa_minimised[i];
+                auto kll=find(sl.begin(),sl.end(),it);
+                if(kll==sl.end()){
                     t++;
                 }
             }
-            // if(t==x){
-            //         string kk;
-            //         kk += it;
-            //         cout<<"it:"<<it<<endl;
-            //         union_of_dfa_minimised.push_back(kk);
-            //         kk.clear();
-            //         t=0;
-            //     }
+            if(t==x){
+                    string kk;
+                    kk += it;
+                    // cout<<"it:"<<it<<endl;
+                    union_of_dfa_minimised.push_back(kk);
+                    t=0;
+                }
             }
-            union_of_dfa_minimised.push_back("F");
         }
     
-
-    void print_union_of_dfa_minimised(){
-        cout<<"states of DFA after minimisation: "<<endl;
+    void print_union_of_dfa_minimised(){      //for printing the minimise final dfa
+    cout<<"\n-------------------------------------------"<<endl;
+        cout<<"states of DFA after minimisation:: ";
         for(auto i=0;i<union_of_dfa_minimised.size();i++){
-                cout<<union_of_dfa_minimised[i]<<" ";
+                cout<<union_of_dfa_minimised[i]<<" , ";
             }
             cout<<endl;
+        cout<<"-------------------------------------------"<<endl;
         }
+
+    
+    void final_minimised_transition_table(){       //for printing the final transition table
+        map <string,map<char,string>> dfa_minimised_2_map;
+        for(int i=0;i<union_of_dfa_minimised.size();i++){
+        for(auto ii:inputs){
+            auto temp=union_of_dfa_minimised[i][0];
+            auto it=dfa[temp][ii];
+            for(auto itt:union_of_dfa_minimised){
+                string sl=itt;
+                auto kll=find(sl.begin(),sl.end(),it);
+                if(kll!=sl.end()){
+                    dfa_minimised_2_map[union_of_dfa_minimised[i]][ii]=sl;
+                    break;
+                }
+            }
+        }
+    }
+
+    cout<<"\nTransition table:\n";
+    cout<<setw(11)<<" | ";
+    for(auto it:inputs){
+        cout<<setw(8)<<it<<" | ";
+    }
+    cout<<endl;
+    cout<<"-------------------------------------------"<<endl;
+    for(auto it:dfa_minimised_2_map){
+        cout<<setw(8)<<it.first<<" | ";
+        for(auto i:it.second)
+        cout<<setw(8)<<i.second<<" | ";
+        cout<<endl;
+        cout<<"-------------------------------------------"<<endl;
+    }
+    }
+
+    void print_final_states(){
+        set<string> ss;
+        cout<<"\n-------------------------------------------"<<endl;
+        cout<<"Final State of DFA after minimisation:: ";
+        for(auto it:final_states){
+            for(auto i:union_of_dfa_minimised){
+                auto kll=find(i.begin(),i.end(),it);
+                if(kll!=i.end()){
+                    ss.insert(i);
+                }
+            }
+        }
+        for(auto it:ss){
+            cout<<it<<" , ";
+        }
+        cout<<"\n-------------------------------------------"<<endl;
+    }
 };
 
 int main()
@@ -300,6 +353,8 @@ int main()
     dfa.final_minimised_dfa();
     dfa.final_minimised_dfa2();
     dfa.print_union_of_dfa_minimised();
+    dfa.final_minimised_transition_table();
+    dfa.print_final_states();
     // dfa.print_optimise_states();
     return 0;
 }

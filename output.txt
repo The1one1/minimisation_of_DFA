@@ -6,12 +6,29 @@ Enter the start state:
 Enter the number of final states: 
 Enter the final states: 
 Enter the transitions:
-   a   b
-A  B   C  
-B  A   D  
-C  E   F  
-D  E   F  
-E  E   F  
-F  F   F  
-states of DFA after minimisation: 
-CDE AB F 
+   |a   |b
+------------------
+A  |B   |C  
+B  |A   |D  
+C  |E   |F  
+D  |E   |F  
+E  |E   |F  
+F  |F   |F  
+
+-------------------------------------------
+states of DFA after minimisation:: CDE , AB , F , 
+-------------------------------------------
+
+Transition table:
+         |        a |        b | 
+-------------------------------------------
+      AB |       AB |      CDE | 
+-------------------------------------------
+     CDE |      CDE |        F | 
+-------------------------------------------
+       F |        F |        F | 
+-------------------------------------------
+
+-------------------------------------------
+Final State of DFA after minimisation:: CDE , 
+-------------------------------------------
