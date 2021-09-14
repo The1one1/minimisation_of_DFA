@@ -54,6 +54,7 @@ public:
             }
             cout << endl;
         }
+        // cout<<"57\n";
     }
 };
 
@@ -85,7 +86,7 @@ public:
             for(int j=0;j<states.size();j++){
                 matrix[i][j] = false;
                 no_of_false_blocks++;
-                // cout<<"hellowfalse1\n";
+                // cout<<"hellowfalse1\n89";
             }
         }
         no_of_false_blocks = no_of_false_blocks - states.size();
@@ -108,8 +109,9 @@ public:
         }
         }
         no_of_false_blocks/=2;
-
+        int y=0;
         while(no_of_false_blocks>0){
+            // cout<<"114::\n";
             int x=no_of_false_blocks;
             for(int i=0;i<states.size();i++){
                 for(int j=0;j<states.size();j++){
@@ -120,8 +122,8 @@ public:
                         for(int k=0;k<inputs.size();k++){
                             if(matrix[i][j]==false){
                             matrix[i][j]=matrix[i][j]||matrix[state_to_index[dfa[states[i]][inputs[k]]]][state_to_index[dfa[states[j]][inputs[k]]]];
-
                             if(matrix[i][j]==true){
+                                matrix[j][i]=true;
                                 no_of_false_blocks--;    
                             }
                             }
@@ -130,9 +132,20 @@ public:
                 }
             }
             if(x==no_of_false_blocks){
+                y++;
+                if(y>=states.size()){
+                    // cout<<"y:136:"<<y<<"\n";
                 break;
+                }
             }
         }
+        // for(int i=0;i<states.size();i++){
+        //     for(int j=0;j<states.size();j++){
+        //         cout<<matrix[i][j]<<" ";
+        //     }
+        //     cout<<endl;
+        // }
+        // cout<<"no_of_false_blocks133:"<<no_of_false_blocks<<endl;
 }
 
     set<string> optimise_states;
@@ -169,11 +182,13 @@ public:
         }
         for(auto it:optimise_states){
             s2.push_back(it);
+            // cout<<"s2185:"<<it<<endl;
         }
     }
     vector<string > union_of_dfa_minimised;
     set<char> s;
     void union_of_optimise_states(){
+        if(optimise_states.size()>=3){
         for(auto i=0;i<optimise_states.size()-2;i++){
             for(int j=i+1;j<optimise_states.size()-1;j++){
                 for(int k=j+1;k<optimise_states.size();k++){
@@ -200,6 +215,12 @@ public:
                     }
                     s.clear();
                 }
+            }
+        }
+        }
+        else{
+            for(auto i=0;i<optimise_states.size();i++){
+                union_of_dfa_minimised.push_back(s2[i]);
             }
         }
     }
@@ -346,10 +367,11 @@ int main()
     }
     dfa.NonFinal_States();
     dfa.print_dfa();
-
     dfa.get_equilance_classes(dfa.states);
     dfa.optimize_states();
+    // cout<<"365\n";
     dfa.union_of_optimise_states();
+    // cout<<"367\n";
     dfa.final_minimised_dfa();
     dfa.final_minimised_dfa2();
     dfa.print_union_of_dfa_minimised();

@@ -9,26 +9,27 @@ Enter the transitions:
    |a   |b
 ------------------
 A  |B   |C  
-B  |A   |D  
-C  |E   |F  
-D  |E   |F  
-E  |E   |F  
-F  |F   |F  
+B  |B   |D  
+C  |B   |C  
+D  |B   |E  
+E  |B   |C  
 
 -------------------------------------------
-states of DFA after minimisation:: CDE , AB , F , 
+states of DFA after minimisation:: AC , B , D , E , 
 -------------------------------------------
 
 Transition table:
          |        a |        b | 
 -------------------------------------------
-      AB |       AB |      CDE | 
+      AC |        B |       AC | 
 -------------------------------------------
-     CDE |      CDE |        F | 
+       B |        B |        D | 
 -------------------------------------------
-       F |        F |        F | 
+       D |        B |        E | 
+-------------------------------------------
+       E |        B |       AC | 
 -------------------------------------------
 
 -------------------------------------------
-Final State of DFA after minimisation:: CDE , 
+Final State of DFA after minimisation:: E , 
 -------------------------------------------
