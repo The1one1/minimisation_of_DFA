@@ -155,6 +155,7 @@ public:
                 }
             }
         }
+        cout<<"no_of_false:"<<no_of_false_blocks<<endl;
     }
 
     set<string> optimise_states;
@@ -162,7 +163,6 @@ public:
     void optimize_states()
     {
         string kl, kl1;
-        int flag = 1;
         for (int i = 0; i < states.size(); i++)
         {
             for (int j = 0; j < states.size(); j++)
@@ -173,21 +173,12 @@ public:
                 }
                 else if (matrix[i][j] == false)
                 {
-                    flag = 2;
                     string s;
                     s += states[i];
                     s += states[j];
                     optimise_states.insert(s);
                     s.clear();
                 }
-            }
-            if (flag == 1)
-            {
-                kl1.clear();
-                kl1 += states[i];
-                optimise_states.insert(kl1);
-                cout << "s1:" << kl1 << " " << endl;
-                kl1.clear();
             }
         }
         for (auto it : optimise_states)

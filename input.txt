@@ -1,14 +1,12 @@
-8
+6
 2
-A B C D E F G H
+A B C D E G
 a b
 A
-1 C
-B F 
-G C 
-A C
-C G
-H F 
-C G 
-G E
-G C
+3 B C G
+B C 
+D E 
+E D 
+G G 
+G G
+G G 
