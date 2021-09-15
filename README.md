@@ -19,12 +19,19 @@ It does not remove unreachable states from DFS.
 Input/Output
 
 Enter the number of states: 4
+
 Enter the number of inputs: 2
+
 Enter the states: A B C D
+
 Enter the inputs: a b
+
 Enter the start state: A
+
 Enter the number of final states: 2
+
 Enter the final states: B C
+
 Enter the transitions:
 
 B A  
