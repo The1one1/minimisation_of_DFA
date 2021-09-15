@@ -35,23 +35,36 @@ Enter the final states: B C
 Enter the transitions:
 
 B A  
+
 C B 
+
 B C 
+
 B C
 
 Sample input:
 4
+
 2
+
 A B C D 
+
 a b
+
 A
+
 2 B C 
+
 B A  
+
 C B 
+
 B C 
+
 B C
 
 Sample output:
+
 
    |a   |b
 --------------
@@ -69,6 +82,7 @@ states of DFA after minimisation:: BC , A , D ,
 -------------------------------------------
 
 Transition table:
+
          |        a |        b | 
 -------------------------------------------
        A |       BC |        A | 
